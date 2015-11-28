@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2015 Jochem Broekhoff
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgement in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
 package nl.jochembroekhoff.jsontranslator;
 
 import java.awt.Component;
@@ -32,7 +51,6 @@ import org.json.simple.parser.ParseException;
 public class Project extends javax.swing.JFrame {
 
     private final Main parent;
-    private String activeTranslation = "";
     /**
      * Current Working Dir
      */
@@ -124,12 +142,6 @@ public class Project extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("New Project - JsonTranslator");
 
-        tab_translations.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab_translationsMouseClicked(evt);
-            }
-        });
-
         lst_keys.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "loading keys..." };
             public int getSize() { return strings.length; }
@@ -148,11 +160,6 @@ public class Project extends javax.swing.JFrame {
         lbl_keys.setText("Keys:");
 
         mnu_project.setText("Project");
-        mnu_project.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnu_projectActionPerformed(evt);
-            }
-        });
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Save");
@@ -262,10 +269,6 @@ public class Project extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnu_projectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnu_projectActionPerformed
-
-    }//GEN-LAST:event_mnu_projectActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         closeProject();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -297,19 +300,15 @@ public class Project extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        setSourceTranslation(activeTranslation);
+        setSourceTranslation(getActiveTranslator().getSlug());
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        getTranslations().remove(activeTranslation);
-        if (projectData.get("sourceTranslation").equals(activeTranslation)) {
+        projectData.put("translations", getTranslations().remove(getActiveTranslator().getSlug()));
+        if (projectData.get("sourceTranslation").equals(getActiveTranslator().getSlug())) {
             projectData.put("srouceTranslation", "");
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void tab_translationsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab_translationsMouseClicked
-        activeTranslation = tab_translations.getTitleAt(tab_translations.getSelectedIndex());
-    }//GEN-LAST:event_tab_translationsMouseClicked
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         String name = JOptionPane.showInputDialog("Enter new name");

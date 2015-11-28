@@ -1,0 +1,23 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Copyright (c) ${date?date?string("yyyy")} Jochem Broekhoff
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}This software is provided 'as-is', without any express or implied
+${licensePrefix}warranty. In no event will the authors be held liable for any damages
+${licensePrefix}arising from the use of this software.
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}Permission is granted to anyone to use this software for any purpose,
+${licensePrefix}including commercial applications, and to alter it and redistribute it
+${licensePrefix}freely, subject to the following restrictions:
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}1. The origin of this software must not be misrepresented; you must not
+${licensePrefix}   claim that you wrote the original software. If you use this software
+${licensePrefix}   in a product, an acknowledgement in the product documentation would be
+${licensePrefix}   appreciated but is not required.
+${licensePrefix}2. Altered source versions must be plainly marked as such, and must not be
+${licensePrefix}   misrepresented as being the original software.
+${licensePrefix}3. This notice may not be removed or altered from any source distribution.
+<#if licenseLast??>
+${licenseLast}
+</#if>

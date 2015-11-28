@@ -8,9 +8,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Project"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnu_projectActionPerformed"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
@@ -171,9 +168,6 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="tab_translations">
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab_translationsMouseClicked"/>
-      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
     </Container>
