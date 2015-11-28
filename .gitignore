@@ -1,3 +1,4 @@
-latest/
-sync.ffs_db
-target/
+/latest/
+/sync.ffs_db
+/target/
+/nbproject/
