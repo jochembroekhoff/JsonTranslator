@@ -20,8 +20,26 @@
 package nl.jochembroekhoff.jsontranslator;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.UIManager;
+import nl.jochembroekhoff.jsontranslator.ui.FlagsListRenderer;
 
 /**
  * Main class
@@ -29,6 +47,8 @@ import javax.swing.UIManager;
  * @author Jochem Broekhoff
  */
 public class Main extends javax.swing.JFrame {
+
+    private final JComboBox flagscombo;
 
     /**
      * Creates new form Main
@@ -39,6 +59,51 @@ public class Main extends javax.swing.JFrame {
             setIconImage(ImageIO.read(getClass().getClassLoader().getResource("logo.png")));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        //FLAGS COMBOBOX
+        {
+            String[] flags = new String[]{};
+            Map<String, Icon> icons = new HashMap<>();
+
+            try {
+                List<String> list = new ArrayList<>();
+                list.add("<none>");
+                URI uri = Main.class.getResource("/flags").toURI();
+                Path myPath;
+                if (uri.getScheme().equals("jar")) {
+                    FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+                    myPath = fileSystem.getPath("/flags");
+                } else {
+                    myPath = Paths.get(uri);
+                }
+                Stream<Path> walk = Files.walk(myPath, 1);
+                for (Iterator<Path> it = walk.iterator(); it.hasNext();) {
+
+                    String i = it.next().getFileName().toString();
+                    if (i.endsWith(".png")) {
+                        list.add(i.replace(".png", ""));
+                    }
+                }
+
+                list.stream().forEach((i) -> {
+                    try {
+                        URL url = ClassLoader.getSystemClassLoader().getResource("flags/" + i + ".png");
+                        Icon icon = new ImageIcon(url);
+                        icons.put(i, icon);
+                    } catch (NullPointerException ex) {
+                        //probably the <none> item
+                    }
+                });
+
+                flags = list.toArray(new String[list.size()]);
+            } catch (Exception e) {
+                //??
+                e.printStackTrace();
+            }
+
+            flagscombo = new JComboBox(flags);
+            flagscombo.setRenderer(new FlagsListRenderer(icons));
         }
     }
 
@@ -73,6 +138,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         btn_settings.setText("Settings");
+        btn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_settingsActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo-small.png"))); // NOI18N
 
@@ -96,18 +166,19 @@ public class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(lbl_title, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_author)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_open_createProject)
-                    .addComponent(btn_settings))
-                .addGap(41, 41, 41))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lbl_title, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_author)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_open_createProject)
+                            .addComponent(btn_settings)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -120,6 +191,10 @@ public class Main extends javax.swing.JFrame {
         proj.setVisible(true);
         proj.initialize();
     }//GEN-LAST:event_btn_open_createProjectActionPerformed
+
+    private void btn_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_settingsActionPerformed
+        //open settings window
+    }//GEN-LAST:event_btn_settingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,6 +231,12 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);
         });
+    }
+
+    public JComboBox getFlagsComboBox() {
+        flagscombo.setSelectedIndex(0);
+        flagscombo.setVisible(true);
+        return flagscombo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

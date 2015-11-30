@@ -19,12 +19,14 @@
  */
 package nl.jochembroekhoff.jsontranslator;
 
+import nl.jochembroekhoff.jsontranslator.ui.ProjectFileView;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,7 +34,10 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -126,6 +131,15 @@ public class Project extends javax.swing.JFrame {
         scp_keys = new javax.swing.JScrollPane();
         lst_keys = new javax.swing.JList<>();
         lbl_keys = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         mnubar = new javax.swing.JMenuBar();
         mnu_project = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -158,6 +172,64 @@ public class Project extends javax.swing.JFrame {
         scp_keys.setViewportView(lst_keys);
 
         lbl_keys.setText("Keys:");
+
+        jLabel1.setText("Source");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setText("Transl.");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jTextArea2.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, 0, 105, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         mnu_project.setText("Project");
 
@@ -246,13 +318,13 @@ public class Project extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scp_keys, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lbl_keys)))
+                        .addComponent(lbl_keys))
+                    .addComponent(scp_keys, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab_translations, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(tab_translations, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +334,9 @@ public class Project extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl_keys)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scp_keys, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
+                        .addComponent(scp_keys, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tab_translations)))
         );
 
@@ -278,21 +352,29 @@ public class Project extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        JPanel panel = new JPanel(new GridLayout(0, 1));
+        JPanel panel = new JPanel(new GridLayout(0, 2));
         JTextField field1 = new JTextField();
         JTextField field2 = new JTextField();
         JCheckBox checkbox = new JCheckBox("Set source translation");
         panel.add(new JLabel("Slug:"));
         panel.add(field1);
+
         panel.add(new JLabel("Name:"));
         panel.add(field2);
+
         panel.add(checkbox);
+        panel.add(new JLabel(" "));
+
+        panel.add(new JLabel("Icon: "));
+        JComboBox combo = parent.getFlagsComboBox();
+        panel.add(combo);
+
         int result = JOptionPane.showConfirmDialog(null,
                 panel,
                 "Add Translation",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            addTranslation(field1.getText(), field2.getText());
+            addTranslation(field1.getText(), field2.getText(), combo.getSelectedItem() + "");
             if (checkbox.isSelected()) {
                 setSourceTranslation(field1.getText());
             }
@@ -301,13 +383,25 @@ public class Project extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         setSourceTranslation(getActiveTranslator().getSlug());
+        updateTranslators();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         projectData.put("translations", getTranslations().remove(getActiveTranslator().getSlug()));
         if (projectData.get("sourceTranslation").equals(getActiveTranslator().getSlug())) {
-            projectData.put("srouceTranslation", "");
+            projectData.put("sourceTranslation", "");
         }
+
+        int removeIndex = -1;
+        for (int i = 0; i < tab_translations.getTabCount(); i++) {
+            Translator tr = (Translator) tab_translations.getComponentAt(i);
+            if (tr.getSlug().equals(getActiveTranslator().getSlug())) {
+                removeIndex = i;
+            }
+        }
+        tab_translations.removeTabAt(removeIndex);
+
+        updateTranslators();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -328,9 +422,9 @@ public class Project extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             keys.add(field2.getText());
             DefaultListModel mdl = new DefaultListModel();
-            for (String key : keys) {
+            keys.stream().forEach((key) -> {
                 mdl.addElement(key);
-            }
+            });
             lst_keys.setModel(mdl);
             updateTranslators();
         }
@@ -343,17 +437,24 @@ public class Project extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lst_keysMouseClicked
 
-    public void addTranslation(String slug, String name) {
+    private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
+        //translate....
+    }//GEN-LAST:event_jTextArea1KeyPressed
+
+    public void addTranslation(String slug, String name, String icon) {
         if (!getTranslations().containsKey(slug)) {
             Translator translator = new Translator(this, slug);
             tab_translations.addTab(name, translator);
+            setTabIcon(tab_translations.indexOfTab(name), icon);
             JSONObject translations = getTranslations(),
                     thisTransl = new JSONObject();
             thisTransl.put("name", name);
+            thisTransl.put("icon", icon);
             translations.put(slug, thisTransl);
             JOptionPane.showMessageDialog(null, translations.toJSONString());
             projectData.put("translations", translations);
         }
+        updateTranslators();
     }
 
     public JSONObject getTranslations() {
@@ -390,6 +491,7 @@ public class Project extends javax.swing.JFrame {
         setVisible(false);
         parent.setVisible(true);
         active = false;
+        parent.getFlagsComboBox().setVisible(false);
     }
 
     private void createNewProjectFile() throws IOException {
@@ -427,6 +529,9 @@ public class Project extends javax.swing.JFrame {
 
                     Translator translator = new Translator(this, key);
                     tab_translations.addTab(translationName, translator);
+                    if (((JSONObject) getTranslations().get(key)).containsKey("icon")) {
+                        setTabIcon(tab_translations.indexOfTab(translationName), (String) ((JSONObject) getTranslations().get(key)).get("icon"));
+                    }
 
                     reverseTranslations.put(translationName, key);
                 }
@@ -533,7 +638,22 @@ public class Project extends javax.swing.JFrame {
         return null;
     }
 
+    public void setTabIcon(int index, String icon) {
+        try {
+            URL url = ClassLoader.getSystemClassLoader().getResource("flags/" + icon + ".png");
+            Icon i = new ImageIcon(url);
+            tab_translations.setIconAt(index, i);
+        } catch (Exception e) {
+            //? 
+            e.printStackTrace();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -542,6 +662,11 @@ public class Project extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel lbl_keys;
     private javax.swing.JList<String> lst_keys;
     private javax.swing.JMenu mnu_edit;

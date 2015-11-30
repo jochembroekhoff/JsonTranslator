@@ -23,5 +23,6 @@ You can give the project a name in **Project** > **Rename**.
 
 ## License
 
-Licensed under the Zlib license([`LICENSE.txt`](https://github.com/jochembroekhoff/JsonTranslator/blob/master/LICENSE.txt)).
-The zlib license header for NetBeans IDE is([`licenseheader.txt`](https://github.com/jochembroekhoff/JsonTranslator/blob/master/licenseheader.txt)).
+Licensed under the Zlib license ([`LICENSE.txt`](https://github.com/jochembroekhoff/JsonTranslator/blob/master/LICENSE.txt)).
+
+The zlib license header to use in NetBeans IDE is [`licenseheader.txt`](https://github.com/jochembroekhoff/JsonTranslator/blob/master/licenseheader.txt).
