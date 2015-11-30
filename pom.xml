@@ -24,9 +24,14 @@
 	    <version>1.1.1</version>
 	</dependency>
 	<dependency>
-	    <groupId>WebTranslator</groupId>
-	    <artifactId>WebTranslator-bin</artifactId>
-	    <version>0.2a</version>
+	    <groupId>com.jtattoo</groupId>
+	    <artifactId>JTattoo</artifactId>
+	    <version>1.6.7</version>
+	</dependency>
+	<dependency>
+	    <groupId>SteelCheckBox</groupId>
+	    <artifactId>SteelCheckBox</artifactId>
+	    <version>1</version>
 	</dependency>
     </dependencies>
     <build>

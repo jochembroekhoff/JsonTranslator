@@ -19,6 +19,7 @@
  */
 package nl.jochembroekhoff.jsontranslator;
 
+import nl.jochembroekhoff.jsontranslator.settings.SettingsFrame;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -39,21 +40,25 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.UIManager;
+import nl.jochembroekhoff.jsontranslator.settings.SettingsManager;
 import nl.jochembroekhoff.jsontranslator.ui.FlagsListRenderer;
 
 /**
- * Main class
+ * Main class/frame
  *
  * @author Jochem Broekhoff
  */
 public class Main extends javax.swing.JFrame {
 
     private final JComboBox flagscombo;
+    private final SettingsManager settings = new SettingsManager(this);
 
     /**
      * Creates new form Main
      */
     public Main() {
+        settings.load();
+        
         initComponents();
         try {
             setIconImage(ImageIO.read(getClass().getClassLoader().getResource("logo.png")));
@@ -194,6 +199,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_settingsActionPerformed
         //open settings window
+        settings.getFrame().setVisible(true);
     }//GEN-LAST:event_btn_settingsActionPerformed
 
     /**
@@ -226,7 +232,7 @@ public class Main extends javax.swing.JFrame {
             }
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);
